@@ -1,0 +1,34 @@
+target/
+.idea/
+/examples
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+*.class
+*.jar
+!**/src/main/**/*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# credentials — NEVER commit
+*.p12
+*.pfx
+*.pem
+*.key
+*.crt
+*.cert
+*.env
+
+# Claude files
+CLAUDE.md
+/.claude
