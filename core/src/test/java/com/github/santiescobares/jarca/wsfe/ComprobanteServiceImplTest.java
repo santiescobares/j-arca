@@ -35,8 +35,8 @@ class ComprobanteServiceImplTest {
 
     private static HttpServer stubServer;
     private static int port;
-    private static final AtomicReference<String> wsaaResponse  = new AtomicReference<>();
-    private static final AtomicReference<String> wsfeResponse  = new AtomicReference<>();
+    private static final AtomicReference<String> wsaaResponse = new AtomicReference<>();
+    private static final AtomicReference<String> wsfeResponse = new AtomicReference<>();
     private static final AtomicInteger wsfeHitCount = new AtomicInteger(0);
 
     private static final CmsSigner NOOP_SIGNER = data -> new byte[]{0x01};
@@ -155,7 +155,7 @@ class ComprobanteServiceImplTest {
                 .serviceUrls(urls)
                 .build();
 
-        WsaaClient wsaaClient   = new WsaaClient(props, NOOP_SIGNER, new InMemoryArcaCache());
+        WsaaClient wsaaClient = new WsaaClient(props, NOOP_SIGNER, new InMemoryArcaCache());
         WsfevClient wsfevClient = new WsfevClient(props);
         return new ComprobanteServiceImpl(props, wsaaClient, wsfevClient);
     }

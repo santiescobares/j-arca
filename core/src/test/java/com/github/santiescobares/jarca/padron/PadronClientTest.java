@@ -151,7 +151,7 @@ class PadronClientTest {
     private static String monotributistaResponse(String cuit, String apellidoNombre, String categoria) {
         String[] partes = apellidoNombre.split(" ", 2);
         String apellido = partes[0];
-        String nombre   = partes.length > 1 ? partes[1] : "";
+        String nombre = partes.length > 1 ? partes[1] : "";
         return """
                 <getPersona_v2Response xmlns="http://a5.soap.ws.server.puc.sr/">
                   <personaReturn>

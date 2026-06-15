@@ -15,8 +15,8 @@ public final class ServiceUrls {
     private final String wscdcUrl;
 
     public ServiceUrls(String wsaaUrl, String wsfeUrl, String padronUrl, String wscdcUrl) {
-        this.wsaaUrl  = Objects.requireNonNull(wsaaUrl,  "wsaaUrl");
-        this.wsfeUrl  = Objects.requireNonNull(wsfeUrl,  "wsfeUrl");
+        this.wsaaUrl = Objects.requireNonNull(wsaaUrl, "wsaaUrl");
+        this.wsfeUrl = Objects.requireNonNull(wsfeUrl, "wsfeUrl");
         this.padronUrl = Objects.requireNonNull(padronUrl, "padronUrl");
         this.wscdcUrl = Objects.requireNonNull(wscdcUrl, "wscdcUrl");
     }
@@ -39,10 +39,10 @@ public final class ServiceUrls {
         };
     }
 
-    public String getWsaaUrl()   { return wsaaUrl;   }
-    public String getWsfeUrl()   { return wsfeUrl;   }
+    public String getWsaaUrl() { return wsaaUrl; }
+    public String getWsfeUrl() { return wsfeUrl; }
     public String getPadronUrl() { return padronUrl; }
-    public String getWscdcUrl()  { return wscdcUrl;  }
+    public String getWscdcUrl() { return wscdcUrl; }
 
     public Builder toBuilder() {
         return new Builder(this);
@@ -59,16 +59,16 @@ public final class ServiceUrls {
         private String wscdcUrl;
 
         private Builder(ServiceUrls src) {
-            this.wsaaUrl   = src.wsaaUrl;
-            this.wsfeUrl   = src.wsfeUrl;
+            this.wsaaUrl = src.wsaaUrl;
+            this.wsfeUrl = src.wsfeUrl;
             this.padronUrl = src.padronUrl;
-            this.wscdcUrl  = src.wscdcUrl;
+            this.wscdcUrl = src.wscdcUrl;
         }
 
-        public Builder wsaaUrl(String v)   { this.wsaaUrl   = v; return this; }
-        public Builder wsfeUrl(String v)   { this.wsfeUrl   = v; return this; }
+        public Builder wsaaUrl(String v) { this.wsaaUrl = v; return this; }
+        public Builder wsfeUrl(String v) { this.wsfeUrl = v; return this; }
         public Builder padronUrl(String v) { this.padronUrl = v; return this; }
-        public Builder wscdcUrl(String v)  { this.wscdcUrl  = v; return this; }
+        public Builder wscdcUrl(String v) { this.wscdcUrl = v; return this; }
 
         public ServiceUrls build() {
             return new ServiceUrls(wsaaUrl, wsfeUrl, padronUrl, wscdcUrl);

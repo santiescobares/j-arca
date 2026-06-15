@@ -81,7 +81,7 @@ class WsaaClientTest {
 
         assertNotNull(ta);
         assertEquals("TOKEN_TEST", ta.token());
-        assertEquals("SIGN_TEST",  ta.sign());
+        assertEquals("SIGN_TEST", ta.sign());
         assertTrue(ta.expiresAt().isAfter(Instant.now()));
     }
 
@@ -90,7 +90,7 @@ class WsaaClientTest {
         ArcaCache cache = new InMemoryArcaCache();
         WsaaClient client = new WsaaClient(propsWithStub(), NOOP_SIGNER, cache);
 
-        TicketAccess first  = client.obtener("wsfe");
+        TicketAccess first = client.obtener("wsfe");
         TicketAccess second = client.obtener("wsfe");
 
         assertEquals(first.token(),  second.token(),

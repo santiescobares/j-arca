@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * in-process lock to prevent duplicate comprobante numbers. For multi-process deployments,
  * an external coordination mechanism (e.g. a database sequence) is required.
  *
- * <p>Does not retry on transport failures (RN-07). The caller should use
+ * <p>Does not retry on transport failures. The caller should use
  * {@code WsfevClient.feCompConsultar} to check idempotency before retrying manually.
  */
 public class ComprobanteServiceImpl implements ComprobanteService {
@@ -54,8 +54,8 @@ public class ComprobanteServiceImpl implements ComprobanteService {
 
     public ComprobanteServiceImpl(ArcaProperties props, WsaaClient wsaaClient,
                                   WsfevClient wsfevClient) {
-        this.props       = props;
-        this.wsaaClient  = wsaaClient;
+        this.props = props;
+        this.wsaaClient = wsaaClient;
         this.wsfevClient = wsfevClient;
     }
 
@@ -81,11 +81,11 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     private ResultadoEmision doEmitir(Comprobante cbte) {
         TicketAccess ta = wsaaClient.obtener("wsfe");
 
-        int ptoVta   = cbte.getPtoVta();
+        int ptoVta = cbte.getPtoVta();
         int cbteTipo = cbte.getTipo().getCodigo();
 
-        long lastNro  = wsfevClient.feCompUltimoAutorizado(ta, ptoVta, cbteTipo);
-        long cbteNro  = lastNro + 1;
+        long lastNro = wsfevClient.feCompUltimoAutorizado(ta, ptoVta, cbteTipo);
+        long cbteNro = lastNro + 1;
 
         LOG.log(System.Logger.Level.INFO,
                 "Emitting {0} ptoVta={1} nro={2} cuit={3}",
@@ -101,9 +101,9 @@ public class ComprobanteServiceImpl implements ComprobanteService {
                     "Error 10016 for ptoVta={0} tipo={1} — re-reading last authorised number",
                     ptoVta, cbteTipo);
             long correctedLast = wsfevClient.feCompUltimoAutorizado(ta, ptoVta, cbteTipo);
-            cbteNro  = correctedLast + 1;
+            cbteNro = correctedLast + 1;
             bodySoap = FeCaeMapper.buildBody(props.getCuit(), ta, cbte, cbteNro);
-            resp     = wsfevClient.feCaeSolicitar(ta, bodySoap);
+            resp = wsfevClient.feCaeSolicitar(ta, bodySoap);
         }
 
         return toResultado(resp);
@@ -116,7 +116,7 @@ public class ComprobanteServiceImpl implements ComprobanteService {
     }
 
     private static ResultadoEmision toResultado(WsfevClient.CaeResponse resp) {
-        List<ArcaObservacion> obs     = resp.obs();
+        List<ArcaObservacion> obs = resp.obs();
         List<ArcaObservacion> errores = resp.errores();
 
         if (!resp.resultado().isAprobado()) {

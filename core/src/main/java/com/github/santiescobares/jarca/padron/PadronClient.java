@@ -24,7 +24,7 @@ public class PadronClient {
     private static final System.Logger LOG = System.getLogger(PadronClient.class.getName());
 
     private static final String PADRON_NS = "http://a5.soap.ws.server.puc.sr/";
-    private static final String SOAP_NS   = "http://schemas.xmlsoap.org/soap/envelope/";
+    private static final String SOAP_NS = "http://schemas.xmlsoap.org/soap/envelope/";
 
     /** IVA (Impuesto al Valor Agregado) id in the Padrón response. */
     private static final int ID_IMPUESTO_IVA = 30;
@@ -33,13 +33,13 @@ public class PadronClient {
     private final SoapClient soapClient;
 
     public PadronClient(ArcaProperties props) {
-        this.props      = props;
+        this.props = props;
         this.soapClient = new SoapClient(props);
     }
 
     /** Constructor for tests that inject a custom {@link SoapClient}. */
     PadronClient(ArcaProperties props, SoapClient soapClient) {
-        this.props      = props;
+        this.props = props;
         this.soapClient = soapClient;
     }
 
@@ -61,7 +61,7 @@ public class PadronClient {
      * @throws ArcaTransportException on network or parse error
      */
     public PersonaData getPersona(TicketAccess ta, String cuit) {
-        String url      = props.getServiceUrls().getPadronUrl();
+        String url = props.getServiceUrls().getPadronUrl();
         String envelope = buildEnvelope(ta, cuit);
 
         LOG.log(System.Logger.Level.DEBUG, "Padrón getPersona_v2: cuit={0}", cuit);
@@ -106,7 +106,7 @@ public class PadronClient {
             throw new ArcaTransportException("Padrón response missing datosGenerales for CUIT " + queriedCuit);
         }
 
-        String idPersona   = textContent(datosGenerales, "idPersona");
+        String idPersona = textContent(datosGenerales, "idPersona");
         String estadoClave = textContent(datosGenerales, "estadoClave");
 
         if (estadoClave != null && !"ACTIVO".equalsIgnoreCase(estadoClave.trim())) {
@@ -114,13 +114,13 @@ public class PadronClient {
         }
 
         // Resolve razonSocial: persona física = apellido + " " + nombre; jurídica = razonSocial
-        String tipoPersona  = textContent(datosGenerales, "tipoPersona");
+        String tipoPersona = textContent(datosGenerales, "tipoPersona");
         String razonSocial;
         if ("JURIDICA".equalsIgnoreCase(tipoPersona != null ? tipoPersona.trim() : "")) {
             razonSocial = textContent(datosGenerales, "razonSocial");
         } else {
             String apellido = textContent(datosGenerales, "apellido");
-            String nombre   = textContent(datosGenerales, "nombre");
+            String nombre = textContent(datosGenerales, "nombre");
             razonSocial = (apellido != null ? apellido.trim() : "")
                     + (nombre != null && !nombre.isBlank() ? " " + nombre.trim() : "");
         }

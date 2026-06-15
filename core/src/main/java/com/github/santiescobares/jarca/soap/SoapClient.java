@@ -91,7 +91,7 @@ public final class SoapClient {
 
     /** Package-private constructor for tests that supply a custom HttpClient. */
     SoapClient(HttpClient http, Duration requestTimeout) {
-        this.http           = http;
+        this.http = http;
         this.requestTimeout = requestTimeout;
     }
 

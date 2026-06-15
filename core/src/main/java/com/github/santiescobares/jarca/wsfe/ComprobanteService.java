@@ -6,13 +6,12 @@ import com.github.santiescobares.jarca.model.ResultadoEmision;
 /**
  * High-level entry point for comprobante emission.
  * Orchestrates: last-authorised lookup → CAE request → result mapping → idempotency guard.
- * Implementation: Etapa 3.
  */
 public interface ComprobanteService {
 
     /**
      * Emits {@code comprobante} and returns the ARCA result (CAE or rejection).
-     * Blocks until ARCA responds; does not queue retries (RN-07).
+     * Blocks until ARCA responds; does not queue retries.
      *
      * @throws com.github.santiescobares.jarca.error.ArcaRechazo           if ARCA rejects
      * @throws com.github.santiescobares.jarca.error.ArcaTransportException on network failure

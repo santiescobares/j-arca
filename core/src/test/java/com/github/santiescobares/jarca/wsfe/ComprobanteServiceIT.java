@@ -42,11 +42,11 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ComprobanteServiceIT {
 
-    private static ArcaProperties        props;
+    private static ArcaProperties props;
     private static ComprobanteServiceImpl service;
-    private static WsfevClient           wsfevClient;
-    private static WsaaClient            wsaaClient;
-    private static int                   ptoVta;
+    private static WsfevClient wsfevClient;
+    private static WsaaClient wsaaClient;
+    private static int ptoVta;
 
     /** Shared state: Factura C emitted in test 10, referenced by NC/ND and QR tests. */
     private static long       emittedFacturaCNro = -1;
@@ -55,8 +55,8 @@ class ComprobanteServiceIT {
     @BeforeAll
     static void setup() {
         String certPath = System.getenv("ARCA_CERT_PATH");
-        String keyPath  = System.getenv("ARCA_KEY_PATH");
-        String cuit     = System.getenv("ARCA_CUIT");
+        String keyPath = System.getenv("ARCA_KEY_PATH");
+        String cuit = System.getenv("ARCA_CUIT");
 
         assumeTrue(certPath != null && keyPath != null && cuit != null,
                 "Skipping IT: ARCA_CERT_PATH / ARCA_KEY_PATH / ARCA_CUIT not set");
@@ -71,11 +71,11 @@ class ComprobanteServiceIT {
                 .build();
 
         CertificateLoader.CertAndKey ck = CertificateLoader.fromProperties(props);
-        BouncyCastleCmsSigner signer    = new BouncyCastleCmsSigner(ck.certificate(), ck.privateKey());
-        InMemoryArcaCache cache         = new InMemoryArcaCache();
-        wsaaClient  = new WsaaClient(props, signer, cache);
+        BouncyCastleCmsSigner signer = new BouncyCastleCmsSigner(ck.certificate(), ck.privateKey());
+        InMemoryArcaCache cache = new InMemoryArcaCache();
+        wsaaClient = new WsaaClient(props, signer, cache);
         wsfevClient = new WsfevClient(props);
-        service     = new ComprobanteServiceImpl(props, wsaaClient, wsfevClient);
+        service = new ComprobanteServiceImpl(props, wsaaClient, wsfevClient);
     }
 
     // ── Factura C ─────────────────────────────────────────────────────────────

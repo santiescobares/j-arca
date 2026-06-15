@@ -35,15 +35,15 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 class WsfevClientIT {
 
     private static ArcaProperties props;
-    private static WsfevClient    wsfevClient;
-    private static WsaaClient     wsaaClient;
-    private static int            ptoVta;
+    private static WsfevClient wsfevClient;
+    private static WsaaClient wsaaClient;
+    private static int ptoVta;
 
     @BeforeAll
     static void setup() {
         String certPath = System.getenv("ARCA_CERT_PATH");
-        String keyPath  = System.getenv("ARCA_KEY_PATH");
-        String cuit     = System.getenv("ARCA_CUIT");
+        String keyPath = System.getenv("ARCA_KEY_PATH");
+        String cuit = System.getenv("ARCA_CUIT");
 
         assumeTrue(certPath != null && keyPath != null && cuit != null,
                 "Skipping IT: ARCA_CERT_PATH / ARCA_KEY_PATH / ARCA_CUIT not set");
@@ -58,8 +58,8 @@ class WsfevClientIT {
                 .build();
 
         CertificateLoader.CertAndKey ck = CertificateLoader.fromProperties(props);
-        BouncyCastleCmsSigner signer    = new BouncyCastleCmsSigner(ck.certificate(), ck.privateKey());
-        wsaaClient  = new WsaaClient(props, signer, new InMemoryArcaCache());
+        BouncyCastleCmsSigner signer = new BouncyCastleCmsSigner(ck.certificate(), ck.privateKey());
+        wsaaClient = new WsaaClient(props, signer, new InMemoryArcaCache());
         wsfevClient = new WsfevClient(props);
     }
 
@@ -129,8 +129,8 @@ class WsfevClientIT {
     @Test
     @Order(6)
     void feCompConsultar_existingComprobante_returnsResult() {
-        TicketAccess ta  = wsaaClient.obtener("wsfe");
-        long ultimo       = wsfevClient.feCompUltimoAutorizado(ta, ptoVta, 11);
+        TicketAccess ta = wsaaClient.obtener("wsfe");
+        long ultimo = wsfevClient.feCompUltimoAutorizado(ta, ptoVta, 11);
 
         assumeTrue(ultimo > 0, "No Factura C emitted yet for ptoVta=" + ptoVta + "; skipping lookup test");
 

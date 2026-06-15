@@ -25,7 +25,7 @@ public final class SoapFaultParser {
         if (faults.getLength() > 0) {
             org.w3c.dom.Element fault = (org.w3c.dom.Element) faults.item(0);
             String faultString = textContent(fault, "faultstring");
-            String faultCode   = textContent(fault, "faultcode");
+            String faultCode = textContent(fault, "faultcode");
             throw new ArcaTransportException("SOAP fault [" + faultCode + "]: " + faultString);
         }
     }

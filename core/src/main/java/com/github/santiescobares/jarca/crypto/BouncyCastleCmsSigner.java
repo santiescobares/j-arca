@@ -31,7 +31,7 @@ public final class BouncyCastleCmsSigner implements CmsSigner {
 
     public BouncyCastleCmsSigner(X509Certificate certificate, PrivateKey privateKey) {
         this.certificate = certificate;
-        this.privateKey  = privateKey;
+        this.privateKey = privateKey;
     }
 
     public static BouncyCastleCmsSigner fromProperties(

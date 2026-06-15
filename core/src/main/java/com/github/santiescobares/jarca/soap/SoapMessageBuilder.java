@@ -6,9 +6,9 @@ package com.github.santiescobares.jarca.soap;
  */
 public final class SoapMessageBuilder {
 
-    private static final String SOAP_NS  = "http://schemas.xmlsoap.org/soap/envelope/";
-    private static final String WSAA_NS  = "http://wsaa.view.sua.dvadac.desein.afip.gov.ar";
-    private static final String WSFE_NS  = "http://ar.gov.afip.dif.FEV1/";
+    private static final String SOAP_NS = "http://schemas.xmlsoap.org/soap/envelope/";
+    private static final String WSAA_NS = "http://wsaa.view.sua.dvadac.desein.afip.gov.ar";
+    private static final String WSFE_NS = "http://ar.gov.afip.dif.FEV1/";
 
     private SoapMessageBuilder() {}
 

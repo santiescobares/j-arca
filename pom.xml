@@ -26,7 +26,6 @@
         <module>core</module>
         <module>cache-redis</module>
         <module>spring-boot-starter</module>
-        <module>examples</module>
     </modules>
 
     <properties>

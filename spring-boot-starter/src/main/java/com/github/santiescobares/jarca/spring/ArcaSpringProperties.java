@@ -63,32 +63,32 @@ public class ArcaSpringProperties {
 
     // ── Getters / Setters ────────────────────────────────────────────────────
 
-    public String getEnvironment()        { return environment;      }
-    public void setEnvironment(String v)  { this.environment = v;    }
+    public String getEnvironment() { return environment; }
+    public void setEnvironment(String v) { this.environment = v; }
 
-    public String getCuit()               { return cuit;             }
-    public void setCuit(String v)         { this.cuit = v;           }
+    public String getCuit() { return cuit; }
+    public void setCuit(String v) { this.cuit = v; }
 
-    public String getCertificatePath()           { return certificatePath;         }
-    public void setCertificatePath(String v)     { this.certificatePath = v;       }
+    public String getCertificatePath() { return certificatePath; }
+    public void setCertificatePath(String v) { this.certificatePath = v; }
 
-    public String getPrivateKeyPath()            { return privateKeyPath;          }
-    public void setPrivateKeyPath(String v)      { this.privateKeyPath = v;        }
+    public String getPrivateKeyPath() { return privateKeyPath; }
+    public void setPrivateKeyPath(String v) { this.privateKeyPath = v; }
 
-    public String getKeystorePath()              { return keystorePath;            }
-    public void setKeystorePath(String v)        { this.keystorePath = v;          }
+    public String getKeystorePath() { return keystorePath; }
+    public void setKeystorePath(String v) { this.keystorePath = v; }
 
-    public String getKeystorePassword()          { return keystorePassword;        }
-    public void setKeystorePassword(String v)    { this.keystorePassword = v;      }
+    public String getKeystorePassword() { return keystorePassword; }
+    public void setKeystorePassword(String v) { this.keystorePassword = v; }
 
-    public Duration getConnectTimeout()          { return connectTimeout;          }
-    public void setConnectTimeout(Duration v)    { this.connectTimeout = v;        }
+    public Duration getConnectTimeout() { return connectTimeout; }
+    public void setConnectTimeout(Duration v) { this.connectTimeout = v; }
 
-    public Duration getRequestTimeout()          { return requestTimeout;          }
-    public void setRequestTimeout(Duration v)    { this.requestTimeout = v;        }
+    public Duration getRequestTimeout() { return requestTimeout; }
+    public void setRequestTimeout(Duration v) { this.requestTimeout = v; }
 
-    public ServiceUrlProperties getUrls()        { return urls;                    }
-    public void setUrls(ServiceUrlProperties v)  { this.urls = v;                 }
+    public ServiceUrlProperties getUrls() { return urls; }
+    public void setUrls(ServiceUrlProperties v) { this.urls = v; }
 
     // ── Conversion ───────────────────────────────────────────────────────────
 
@@ -100,10 +100,10 @@ public class ArcaSpringProperties {
         Environment env = Environment.valueOf(environment.toUpperCase(Locale.ROOT));
 
         ServiceUrls.Builder urlsBuilder = ServiceUrls.builder(env);
-        if (urls.getWsaa()   != null) urlsBuilder.wsaaUrl(urls.getWsaa());
-        if (urls.getWsfe()   != null) urlsBuilder.wsfeUrl(urls.getWsfe());
+        if (urls.getWsaa() != null) urlsBuilder.wsaaUrl(urls.getWsaa());
+        if (urls.getWsfe() != null) urlsBuilder.wsfeUrl(urls.getWsfe());
         if (urls.getPadron() != null) urlsBuilder.padronUrl(urls.getPadron());
-        if (urls.getWscdc()  != null) urlsBuilder.wscdcUrl(urls.getWscdc());
+        if (urls.getWscdc() != null) urlsBuilder.wscdcUrl(urls.getWscdc());
 
         return ArcaProperties.builder()
                 .environment(env)
@@ -136,16 +136,16 @@ public class ArcaSpringProperties {
         /** WSCDC endpoint override. */
         private String wscdc;
 
-        public String getWsaa()             { return wsaa;    }
-        public void setWsaa(String v)       { this.wsaa = v;  }
+        public String getWsaa() { return wsaa; }
+        public void setWsaa(String v) { this.wsaa = v; }
 
-        public String getWsfe()             { return wsfe;    }
-        public void setWsfe(String v)       { this.wsfe = v;  }
+        public String getWsfe() { return wsfe; }
+        public void setWsfe(String v) { this.wsfe = v; }
 
-        public String getPadron()           { return padron;  }
-        public void setPadron(String v)     { this.padron = v;}
+        public String getPadron() { return padron; }
+        public void setPadron(String v) { this.padron = v; }
 
-        public String getWscdc()            { return wscdc;   }
-        public void setWscdc(String v)      { this.wscdc = v; }
+        public String getWscdc() { return wscdc; }
+        public void setWscdc(String v) { this.wscdc = v; }
     }
 }

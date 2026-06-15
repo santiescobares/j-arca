@@ -39,17 +39,17 @@ public final class WsaaClient {
     private final SoapClient soapClient;
 
     public WsaaClient(ArcaProperties props, CmsSigner signer, ArcaCache cache) {
-        this.props      = props;
-        this.signer     = signer;
-        this.cache      = cache;
+        this.props = props;
+        this.signer = signer;
+        this.cache = cache;
         this.soapClient = new SoapClient(props);
     }
 
     /** Constructor for tests that inject a custom {@link SoapClient}. */
     WsaaClient(ArcaProperties props, CmsSigner signer, ArcaCache cache, SoapClient soapClient) {
-        this.props      = props;
-        this.signer     = signer;
-        this.cache      = cache;
+        this.props = props;
+        this.signer = signer;
+        this.cache = cache;
         this.soapClient = soapClient;
     }
 
@@ -82,14 +82,14 @@ public final class WsaaClient {
     // ── private ──────────────────────────────────────────────────────────────
 
     private TicketAccess loginCms(String servicio) {
-        String traXml   = TraBuilder.build(servicio);
-        byte[] traDer   = traXml.getBytes(StandardCharsets.UTF_8);
-        byte[] cms      = signer.sign(traDer);
-        String b64Cms   = Base64.getEncoder().encodeToString(cms);
+        String traXml = TraBuilder.build(servicio);
+        byte[] traDer = traXml.getBytes(StandardCharsets.UTF_8);
+        byte[] cms = signer.sign(traDer);
+        String b64Cms = Base64.getEncoder().encodeToString(cms);
 
         String envelope = SoapMessageBuilder.loginCms(b64Cms);
-        String url      = props.getServiceUrls().getWsaaUrl();
-        Document doc    = soapClient.post(url, "", envelope);
+        String url = props.getServiceUrls().getWsaaUrl();
+        Document doc = soapClient.post(url, "", envelope);
 
         return parseResponse(doc);
     }
@@ -122,8 +122,8 @@ public final class WsaaClient {
             throw new ArcaTransportException("Failed to parse WSAA TA XML", e);
         }
 
-        String token          = firstText(taDoc, "token");
-        String sign           = firstText(taDoc, "sign");
+        String token = firstText(taDoc, "token");
+        String sign = firstText(taDoc, "sign");
         String expirationTime = firstText(taDoc, "expirationTime");
 
         if (token == null || sign == null || expirationTime == null) {

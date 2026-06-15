@@ -28,9 +28,9 @@ public class WscdcClient {
 
     private static final System.Logger LOG = System.getLogger(WscdcClient.class.getName());
 
-    private static final String WSCDC_NS     = "http://ar.gov.afip.dif.wscdc.service/";
-    private static final String SOAP_NS      = "http://schemas.xmlsoap.org/soap/envelope/";
-    private static final String SOAP_ACTION  = "";
+    private static final String WSCDC_NS = "http://ar.gov.afip.dif.wscdc.service/";
+    private static final String SOAP_NS = "http://schemas.xmlsoap.org/soap/envelope/";
+    private static final String SOAP_ACTION = "";
 
     /** CbteModo: "CAE" for comprobantes authorised via WSFEv1. */
     private static final String CBTE_MODO_CAE = "CAE";
@@ -41,13 +41,13 @@ public class WscdcClient {
     private final SoapClient soapClient;
 
     public WscdcClient(ArcaProperties props) {
-        this.props      = props;
+        this.props = props;
         this.soapClient = new SoapClient(props);
     }
 
     /** Constructor for tests that inject a custom {@link SoapClient}. */
     WscdcClient(ArcaProperties props, SoapClient soapClient) {
-        this.props      = props;
+        this.props = props;
         this.soapClient = soapClient;
     }
 
@@ -61,7 +61,7 @@ public class WscdcClient {
      * @throws ArcaTransportException on network or parse error
      */
     public InvoiceResult constatar(TicketAccess ta, ConstatarRequest request) {
-        String url      = props.getServiceUrls().getWscdcUrl();
+        String url = props.getServiceUrls().getWscdcUrl();
         String envelope = buildEnvelope(ta, request);
 
         LOG.log(System.Logger.Level.DEBUG,

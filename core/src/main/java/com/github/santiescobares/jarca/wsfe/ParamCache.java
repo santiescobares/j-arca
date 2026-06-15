@@ -30,7 +30,7 @@ public final class ParamCache {
 
     public ParamCache(WsfevClient client, ArcaCache cache) {
         this.client = client;
-        this.cache  = cache;
+        this.cache = cache;
     }
 
     /**

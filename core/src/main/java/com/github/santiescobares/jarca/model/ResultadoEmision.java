@@ -20,7 +20,7 @@ public record ResultadoEmision(
 
     public ResultadoEmision {
         observaciones = List.copyOf(observaciones);
-        errores       = List.copyOf(errores);
+        errores = List.copyOf(errores);
     }
 
     public boolean isAprobado() {

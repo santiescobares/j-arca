@@ -78,8 +78,8 @@ public final class FeCaeMapper {
 
         // Amounts — class C zeros out ImpTotConc, ImpOpEx, ImpIVA (they must be 0)
         BigDecimal impTotConc = isClassC ? BigDecimal.ZERO.setScale(2) : cbte.getImpTotConc();
-        BigDecimal impOpEx    = isClassC ? BigDecimal.ZERO.setScale(2) : cbte.getImpOpEx();
-        BigDecimal impIva     = isClassC ? BigDecimal.ZERO.setScale(2) : cbte.getImpIva();
+        BigDecimal impOpEx = isClassC ? BigDecimal.ZERO.setScale(2) : cbte.getImpOpEx();
+        BigDecimal impIva = isClassC ? BigDecimal.ZERO.setScale(2) : cbte.getImpIva();
 
         sb.append("        <ar:ImpTotal>").append(fmt(cbte.getImpTotal())).append("</ar:ImpTotal>\n");
         sb.append("        <ar:ImpTotConc>").append(fmt(impTotConc)).append("</ar:ImpTotConc>\n");

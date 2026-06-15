@@ -9,14 +9,12 @@ import java.util.Optional;
 
 /**
  * {@link ArcaCache} backed by Redis, using a zero-dependency RESP client ({@link RespClient}).
- * Each operation opens and closes its own connection (connection pooling: Etapa 6).
+ * Each operation opens and closes its own connection.
  *
  * <p>Construction:
  * <pre>{@code
  * RedisArcaCache cache = new RedisArcaCache("localhost", 6379);
  * }</pre>
- *
- * Implementation: Etapa 6.
  */
 public final class RedisArcaCache implements ArcaCache {
 
@@ -29,8 +27,8 @@ public final class RedisArcaCache implements ArcaCache {
     }
 
     public RedisArcaCache(String host, int port, Duration connectTimeout) {
-        this.host           = host;
-        this.port           = port;
+        this.host = host;
+        this.port = port;
         this.connectTimeout = connectTimeout;
     }
 

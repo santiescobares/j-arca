@@ -19,7 +19,7 @@ public class ArcaRechazo extends ArcaException {
     public ArcaRechazo(List<ArcaObservacion> errores, List<ArcaObservacion> obs) {
         super("ARCA rechazó la solicitud: errores=" + errores + " obs=" + obs);
         this.errores = List.copyOf(errores);
-        this.obs     = List.copyOf(obs);
+        this.obs = List.copyOf(obs);
     }
 
     /** Immutable list of ARCA global error codes returned in the response. */

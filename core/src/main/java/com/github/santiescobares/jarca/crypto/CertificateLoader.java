@@ -65,7 +65,7 @@ public final class CertificateLoader {
     public static CertAndKey loadPkcs12(String keystorePath, String password) {
         try (FileInputStream fis = new FileInputStream(keystorePath)) {
             KeyStore ks = KeyStore.getInstance("PKCS12");
-            char[] pwd  = password != null ? password.toCharArray() : new char[0];
+            char[] pwd = password != null ? password.toCharArray() : new char[0];
             ks.load(fis, pwd);
 
             String alias = ks.aliases().nextElement();

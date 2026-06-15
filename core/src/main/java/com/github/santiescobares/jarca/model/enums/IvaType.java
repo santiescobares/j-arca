@@ -17,7 +17,7 @@ public enum IvaType {
     private final String descripcion;
 
     IvaType(int codigo, String descripcion) {
-        this.codigo      = codigo;
+        this.codigo = codigo;
         this.descripcion = descripcion;
     }
 

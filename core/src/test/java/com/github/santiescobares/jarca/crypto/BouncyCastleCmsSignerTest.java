@@ -38,7 +38,7 @@ class BouncyCastleCmsSignerTest {
         X500Name subject = new X500Name("CN=Test, O=j-arca, C=AR");
         SubjectPublicKeyInfo spki = SubjectPublicKeyInfo.getInstance(kp.getPublic().getEncoded());
         Date notBefore = new Date(System.currentTimeMillis() - 1000);
-        Date notAfter  = new Date(System.currentTimeMillis() + 3_600_000L);
+        Date notAfter = new Date(System.currentTimeMillis() + 3_600_000L);
 
         ContentSigner signer = new JcaContentSignerBuilder("SHA256withRSA")
                 .setProvider(BouncyCastleProvider.PROVIDER_NAME)
@@ -56,7 +56,7 @@ class BouncyCastleCmsSignerTest {
     @Test
     void sign_producesNonEmptyDerBytes() {
         BouncyCastleCmsSigner cms = new BouncyCastleCmsSigner(certificate, privateKey);
-        byte[] data   = "<?xml version=\"1.0\"?><loginTicketRequest/>".getBytes(StandardCharsets.UTF_8);
+        byte[] data = "<?xml version=\"1.0\"?><loginTicketRequest/>".getBytes(StandardCharsets.UTF_8);
         byte[] signed = cms.sign(data);
 
         assertNotNull(signed);
@@ -66,7 +66,7 @@ class BouncyCastleCmsSignerTest {
     @Test
     void sign_producesValidCmsSignedData() throws Exception {
         BouncyCastleCmsSigner cms = new BouncyCastleCmsSigner(certificate, privateKey);
-        byte[] data   = "test payload".getBytes(StandardCharsets.UTF_8);
+        byte[] data = "test payload".getBytes(StandardCharsets.UTF_8);
         byte[] signed = cms.sign(data);
 
         // Parse the DER bytes to verify it is a valid CMS SignedData structure
@@ -78,7 +78,7 @@ class BouncyCastleCmsSignerTest {
     @Test
     void sign_encapsulatesOriginalContent() throws Exception {
         BouncyCastleCmsSigner cms = new BouncyCastleCmsSigner(certificate, privateKey);
-        byte[] data   = "hello ARCA".getBytes(StandardCharsets.UTF_8);
+        byte[] data = "hello ARCA".getBytes(StandardCharsets.UTF_8);
         byte[] signed = cms.sign(data);
 
         CMSSignedData cmsData = new CMSSignedData(signed);

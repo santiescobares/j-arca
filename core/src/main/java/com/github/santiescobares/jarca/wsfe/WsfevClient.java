@@ -44,13 +44,13 @@ public class WsfevClient {
     private final SoapClient soapClient;
 
     public WsfevClient(ArcaProperties props) {
-        this.props      = props;
+        this.props = props;
         this.soapClient = new SoapClient(props);
     }
 
     /** Constructor for tests that inject a custom {@link SoapClient}. */
     WsfevClient(ArcaProperties props, SoapClient soapClient) {
-        this.props      = props;
+        this.props = props;
         this.soapClient = soapClient;
     }
 
@@ -68,9 +68,9 @@ public class WsfevClient {
         Document doc = soapClient.post(url, ACTION_PREFIX + "FEDummy",
                 SoapMessageBuilder.feDummy());
 
-        String app  = firstText(doc, "AppServer");
+        String app = firstText(doc, "AppServer");
         String auth = firstText(doc, "AuthServer");
-        String db   = firstText(doc, "DbServer");
+        String db = firstText(doc, "DbServer");
         boolean ok = "OK".equalsIgnoreCase(app) && "OK".equalsIgnoreCase(auth) && "OK".equalsIgnoreCase(db);
         LOG.log(System.Logger.Level.DEBUG, "FEDummy: AppServer={0} AuthServer={1} DbServer={2}", app, auth, db);
         return ok;
@@ -163,8 +163,8 @@ public class WsfevClient {
             return Optional.empty();
         }
 
-        String cae     = firstText(doc, "CodAutorizacion");
-        String fchVto  = firstText(doc, "FchVto");
+        String cae = firstText(doc, "CodAutorizacion");
+        String fchVto = firstText(doc, "FchVto");
         String resultado = firstText(doc, "Resultado");
 
         if (cae == null || cae.isBlank() || resultado == null) {
@@ -252,7 +252,7 @@ public class WsfevClient {
 
         InvoiceResult resultado = InvoiceResult.fromCodigo(resultadoStr.trim());
 
-        String cae    = firstText(doc, "CAE");
+        String cae = firstText(doc, "CAE");
         String fchVto = firstText(doc, "CAEFchVto");
         LocalDate caeFchVto = parseDate(fchVto);
 
@@ -274,7 +274,7 @@ public class WsfevClient {
         for (int i = 0; i < items.getLength(); i++) {
             org.w3c.dom.Element el = (org.w3c.dom.Element) items.item(i);
             String codeStr = textContentOf(el, codeTag);
-            String msg     = textContentOf(el, msgTag);
+            String msg = textContentOf(el, msgTag);
             if (codeStr != null && !codeStr.isBlank()) {
                 try {
                     result.add(new ArcaObservacion(Integer.parseInt(codeStr.trim()),

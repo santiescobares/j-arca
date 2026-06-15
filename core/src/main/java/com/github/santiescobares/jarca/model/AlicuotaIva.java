@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * One IVA rate entry in the Iva array (FECAEDetRequest).
  * Only relevant for class A and B comprobantes; class C must not include IVA breakdown.
- * Amounts use scale 2, HALF_UP per RN-43.
+ * Amounts use scale 2, HALF_UP.
  */
 public record AlicuotaIva(IvaType tipo, BigDecimal baseImponible, BigDecimal importe) {
 

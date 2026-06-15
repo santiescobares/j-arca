@@ -76,9 +76,9 @@ public final class QrPayloadBuilder {
      * @throws IllegalArgumentException if resultado is not approved or CAE is missing
      */
     public static String build(String baseUrl, String cuit, Comprobante cbte, ResultadoEmision resultado) {
-        Objects.requireNonNull(baseUrl,   "baseUrl");
-        Objects.requireNonNull(cuit,      "cuit");
-        Objects.requireNonNull(cbte,      "cbte");
+        Objects.requireNonNull(baseUrl, "baseUrl");
+        Objects.requireNonNull(cuit, "cuit");
+        Objects.requireNonNull(cbte, "cbte");
         Objects.requireNonNull(resultado, "resultado");
 
         if (!resultado.isAprobado() || resultado.cae() == null) {
@@ -95,8 +95,8 @@ public final class QrPayloadBuilder {
 
     private static String buildJson(String cuit, Comprobante cbte, ResultadoEmision resultado) {
         long cuitLong = Long.parseLong(cuit.replaceAll("[^0-9]", ""));
-        long codAut   = Long.parseLong(resultado.cae().codigo());
-        String fecha  = cbte.getFechaCbte().format(DATE_FMT);
+        long codAut = Long.parseLong(resultado.cae().codigo());
+        String fecha = cbte.getFechaCbte().format(DATE_FMT);
         long nroDocRec;
         try {
             nroDocRec = Long.parseLong(cbte.getDocNro().replaceAll("[^0-9]", ""));

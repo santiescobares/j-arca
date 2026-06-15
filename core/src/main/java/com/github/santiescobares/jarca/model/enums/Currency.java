@@ -14,7 +14,7 @@ public enum Currency {
     private final String descripcion;
 
     Currency(String codigo, String descripcion) {
-        this.codigo      = codigo;
+        this.codigo = codigo;
         this.descripcion = descripcion;
     }
 

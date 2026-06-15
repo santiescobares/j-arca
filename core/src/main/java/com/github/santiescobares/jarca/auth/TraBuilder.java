@@ -41,10 +41,10 @@ public final class TraBuilder {
      */
     public static String build(String service) {
         // Subtract a small buffer to tolerate clock skew between client and WSAA servers.
-        ZonedDateTime now     = ZonedDateTime.now(ArcaProperties.ZONE).minusSeconds(10);
-        ZonedDateTime expiry  = now.plus(VALIDITY);
+        ZonedDateTime now = ZonedDateTime.now(ArcaProperties.ZONE).minusSeconds(10);
+        ZonedDateTime expiry = now.plus(VALIDITY);
         // Random uniqueId within xs:unsignedInt range (max 4,294,967,295) to avoid collisions across rapid TA requests.
-        long uniqueId         = ThreadLocalRandom.current().nextLong(1_000_000_000L, 4_000_000_000L);
+        long uniqueId = ThreadLocalRandom.current().nextLong(1_000_000_000L, 4_000_000_000L);
 
         return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                "<loginTicketRequest version=\"1.0\">" +

@@ -9,7 +9,6 @@ import java.time.Duration;
  * Minimal synchronised RESP (Redis Serialisation Protocol) client.
  * Implements only the commands needed by {@link RedisArcaCache}: GET, SET EX, DEL.
  * Zero external dependencies — pure JDK sockets.
- * Implementation: Etapa 6.
  */
 final class RespClient implements Closeable {
 
@@ -22,8 +21,8 @@ final class RespClient implements Closeable {
     private OutputStream writer;
 
     RespClient(String host, int port, Duration connectTimeout) {
-        this.host           = host;
-        this.port           = port;
+        this.host = host;
+        this.port = port;
         this.connectTimeout = connectTimeout;
     }
 

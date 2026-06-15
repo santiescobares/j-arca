@@ -15,7 +15,7 @@ class TraBuilderTest {
     @Test
     void build_containsRequiredElements() {
         String tra = TraBuilder.build("wsfe");
-        assertTrue(tra.contains("<uniqueId>"),       "TRA must have uniqueId");
+        assertTrue(tra.contains("<uniqueId>"), "TRA must have uniqueId");
         assertTrue(tra.contains("<generationTime>"), "TRA must have generationTime");
         assertTrue(tra.contains("<expirationTime>"), "TRA must have expirationTime");
         assertTrue(tra.contains("loginTicketRequest"), "TRA must be loginTicketRequest");
@@ -43,14 +43,14 @@ class TraBuilderTest {
     @Test
     void build_uniqueIdIsPositiveLong() {
         String tra = TraBuilder.build("wsfe");
-        String id  = extractBetween(tra, "<uniqueId>", "</uniqueId>");
+        String id = extractBetween(tra, "<uniqueId>", "</uniqueId>");
         assertNotNull(id);
         assertTrue(Long.parseLong(id) > 0, "uniqueId must be a positive epoch second");
     }
 
     private static String extractBetween(String s, String open, String close) {
         int start = s.indexOf(open);
-        int end   = s.indexOf(close);
+        int end = s.indexOf(close);
         if (start < 0 || end < 0) return null;
         return s.substring(start + open.length(), end);
     }

@@ -31,28 +31,28 @@ public final class ArcaProperties {
     private final Duration requestTimeout;
 
     private ArcaProperties(Builder b) {
-        this.environment     = Objects.requireNonNull(b.environment,  "environment");
-        this.cuit            = Objects.requireNonNull(b.cuit,         "cuit");
-        this.serviceUrls     = b.serviceUrls != null ? b.serviceUrls : ServiceUrls.forEnvironment(b.environment);
+        this.environment = Objects.requireNonNull(b.environment, "environment");
+        this.cuit = Objects.requireNonNull(b.cuit, "cuit");
+        this.serviceUrls = b.serviceUrls != null ? b.serviceUrls : ServiceUrls.forEnvironment(b.environment);
         this.certificatePath = b.certificatePath;
-        this.privateKeyPath  = b.privateKeyPath;
-        this.keystorePath    = b.keystorePath;
+        this.privateKeyPath = b.privateKeyPath;
+        this.keystorePath = b.keystorePath;
         this.keystorePassword = b.keystorePassword;
-        this.connectTimeout  = b.connectTimeout != null  ? b.connectTimeout  : Duration.ofSeconds(30);
-        this.requestTimeout  = b.requestTimeout != null  ? b.requestTimeout  : Duration.ofSeconds(60);
+        this.connectTimeout = b.connectTimeout != null ? b.connectTimeout : Duration.ofSeconds(30);
+        this.requestTimeout = b.requestTimeout != null ? b.requestTimeout : Duration.ofSeconds(60);
     }
 
     public static Builder builder() { return new Builder(); }
 
-    public Environment  getEnvironment()      { return environment;     }
-    public String       getCuit()             { return cuit;            }
-    public ServiceUrls  getServiceUrls()      { return serviceUrls;     }
-    public String       getCertificatePath()  { return certificatePath; }
-    public String       getPrivateKeyPath()   { return privateKeyPath;  }
-    public String       getKeystorePath()     { return keystorePath;    }
-    public String       getKeystorePassword() { return keystorePassword;}
-    public Duration     getConnectTimeout()   { return connectTimeout;  }
-    public Duration     getRequestTimeout()   { return requestTimeout;  }
+    public Environment getEnvironment() { return environment; }
+    public String getCuit() { return cuit; }
+    public ServiceUrls getServiceUrls() { return serviceUrls; }
+    public String getCertificatePath() { return certificatePath; }
+    public String getPrivateKeyPath() { return privateKeyPath; }
+    public String getKeystorePath() { return keystorePath; }
+    public String getKeystorePassword() { return keystorePassword; }
+    public Duration getConnectTimeout() { return connectTimeout; }
+    public Duration getRequestTimeout() { return requestTimeout; }
 
     public static final class Builder {
         private Environment environment;
@@ -65,15 +65,15 @@ public final class ArcaProperties {
         private Duration connectTimeout;
         private Duration requestTimeout;
 
-        public Builder environment(Environment v)    { this.environment    = v; return this; }
-        public Builder cuit(String v)                { this.cuit           = v; return this; }
-        public Builder serviceUrls(ServiceUrls v)    { this.serviceUrls    = v; return this; }
-        public Builder certificatePath(String v)     { this.certificatePath = v; return this; }
-        public Builder privateKeyPath(String v)      { this.privateKeyPath  = v; return this; }
-        public Builder keystorePath(String v)        { this.keystorePath    = v; return this; }
-        public Builder keystorePassword(String v)    { this.keystorePassword = v; return this; }
-        public Builder connectTimeout(Duration v)    { this.connectTimeout  = v; return this; }
-        public Builder requestTimeout(Duration v)    { this.requestTimeout  = v; return this; }
+        public Builder environment(Environment v) { this.environment = v; return this; }
+        public Builder cuit(String v) { this.cuit = v; return this; }
+        public Builder serviceUrls(ServiceUrls v) { this.serviceUrls = v; return this; }
+        public Builder certificatePath(String v) { this.certificatePath = v; return this; }
+        public Builder privateKeyPath(String v) { this.privateKeyPath = v; return this; }
+        public Builder keystorePath(String v) { this.keystorePath = v; return this; }
+        public Builder keystorePassword(String v) { this.keystorePassword = v; return this; }
+        public Builder connectTimeout(Duration v) { this.connectTimeout = v; return this; }
+        public Builder requestTimeout(Duration v) { this.requestTimeout = v; return this; }
 
         public ArcaProperties build() { return new ArcaProperties(this); }
     }
