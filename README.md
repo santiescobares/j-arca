@@ -12,7 +12,6 @@ Designed for use standalone (Java 21+) or with Spring Boot, with optional Redis 
 | `core` | Core logic. Only runtime dependency: BouncyCastle (CMS signing). |
 | `cache-redis` | `ArcaCache` implementation backed by Redis (zero extra dependencies — pure RESP protocol). |
 | `spring-boot-starter` | Spring Boot auto-configuration. |
-| `examples` | Homologation harness (not published). |
 
 ## Requirements
 
