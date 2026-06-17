@@ -1,7 +1,6 @@
 package com.github.santiescobares.jarca.wsfe;
 
 import com.github.santiescobares.jarca.auth.WsaaClient;
-import com.github.santiescobares.jarca.cache.InMemoryArcaCache;
 import com.github.santiescobares.jarca.config.ArcaProperties;
 import com.github.santiescobares.jarca.config.Environment;
 import com.github.santiescobares.jarca.crypto.BouncyCastleCmsSigner;
@@ -12,6 +11,8 @@ import com.github.santiescobares.jarca.model.Comprobante;
 import com.github.santiescobares.jarca.model.ResultadoEmision;
 import com.github.santiescobares.jarca.model.enums.*;
 import com.github.santiescobares.jarca.qr.QrPayloadBuilder;
+import com.github.santiescobares.jarca.testsupport.FilePersistentArcaCache;
+import com.github.santiescobares.jarca.testsupport.ItCredentials;
 import org.junit.jupiter.api.*;
 
 import java.math.BigDecimal;
@@ -54,14 +55,14 @@ class ComprobanteServiceIT {
 
     @BeforeAll
     static void setup() {
-        String certPath = System.getenv("ARCA_CERT_PATH");
-        String keyPath = System.getenv("ARCA_KEY_PATH");
-        String cuit = System.getenv("ARCA_CUIT");
+        String certPath = ItCredentials.resolve("arca.cert", "ARCA_CERT_PATH");
+        String keyPath = ItCredentials.resolve("arca.key", "ARCA_KEY_PATH");
+        String cuit = ItCredentials.resolve("arca.cuit", "ARCA_CUIT");
 
         assumeTrue(certPath != null && keyPath != null && cuit != null,
                 "Skipping IT: ARCA_CERT_PATH / ARCA_KEY_PATH / ARCA_CUIT not set");
 
-        ptoVta = Integer.parseInt(System.getenv().getOrDefault("ARCA_PTO_VTA", "1"));
+        ptoVta = Integer.parseInt(ItCredentials.resolve("arca.ptoVta", "ARCA_PTO_VTA", "1"));
 
         props = ArcaProperties.builder()
                 .environment(Environment.HOMOLOGACION)
@@ -72,7 +73,7 @@ class ComprobanteServiceIT {
 
         CertificateLoader.CertAndKey ck = CertificateLoader.fromProperties(props);
         BouncyCastleCmsSigner signer = new BouncyCastleCmsSigner(ck.certificate(), ck.privateKey());
-        InMemoryArcaCache cache = new InMemoryArcaCache();
+        FilePersistentArcaCache cache = new FilePersistentArcaCache();
         wsaaClient = new WsaaClient(props, signer, cache);
         wsfevClient = new WsfevClient(props);
         service = new ComprobanteServiceImpl(props, wsaaClient, wsfevClient);

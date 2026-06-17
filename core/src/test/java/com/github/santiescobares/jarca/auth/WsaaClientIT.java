@@ -1,10 +1,11 @@
 package com.github.santiescobares.jarca.auth;
 
-import com.github.santiescobares.jarca.cache.InMemoryArcaCache;
 import com.github.santiescobares.jarca.config.ArcaProperties;
 import com.github.santiescobares.jarca.config.Environment;
 import com.github.santiescobares.jarca.crypto.BouncyCastleCmsSigner;
 import com.github.santiescobares.jarca.crypto.CertificateLoader;
+import com.github.santiescobares.jarca.testsupport.FilePersistentArcaCache;
+import com.github.santiescobares.jarca.testsupport.ItCredentials;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +22,9 @@ class WsaaClientIT {
 
     @Test
     void obtener_validTicketFromHomologacion() {
-        String certPath = System.getenv("ARCA_CERT_PATH");
-        String keyPath = System.getenv("ARCA_KEY_PATH");
-        String cuit = System.getenv("ARCA_CUIT");
+        String certPath = ItCredentials.resolve("arca.cert", "ARCA_CERT_PATH");
+        String keyPath = ItCredentials.resolve("arca.key", "ARCA_KEY_PATH");
+        String cuit = ItCredentials.resolve("arca.cuit", "ARCA_CUIT");
 
         Assumptions.assumeTrue(certPath != null && keyPath != null && cuit != null,
                 "Skipping IT: ARCA_CERT_PATH / ARCA_KEY_PATH / ARCA_CUIT not set");
@@ -37,7 +38,7 @@ class WsaaClientIT {
 
         CertificateLoader.CertAndKey ck = CertificateLoader.fromProperties(props);
         BouncyCastleCmsSigner signer = new BouncyCastleCmsSigner(ck.certificate(), ck.privateKey());
-        InMemoryArcaCache cache = new InMemoryArcaCache();
+        FilePersistentArcaCache cache = new FilePersistentArcaCache();
         WsaaClient client = new WsaaClient(props, signer, cache);
 
         // First call: must contact WSAA
