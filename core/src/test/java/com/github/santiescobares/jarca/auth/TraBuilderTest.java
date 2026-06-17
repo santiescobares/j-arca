@@ -41,6 +41,19 @@ class TraBuilderTest {
     }
 
     @Test
+    void build_withExplicitValidity_usesGivenWindow() {
+        String tra = TraBuilder.build("wsfe", java.time.Duration.ofMinutes(10));
+        String gen = extractBetween(tra, "<generationTime>", "</generationTime>");
+        String exp = extractBetween(tra, "<expirationTime>", "</expirationTime>");
+
+        java.time.OffsetDateTime genTime = java.time.OffsetDateTime.parse(gen);
+        java.time.OffsetDateTime expTime = java.time.OffsetDateTime.parse(exp);
+
+        long minutes = java.time.Duration.between(genTime, expTime).toMinutes();
+        assertEquals(10, minutes, "explicit validity window must be honoured");
+    }
+
+    @Test
     void build_uniqueIdIsPositiveLong() {
         String tra = TraBuilder.build("wsfe");
         String id = extractBetween(tra, "<uniqueId>", "</uniqueId>");

@@ -29,6 +29,8 @@ public final class ArcaProperties {
 
     private final Duration connectTimeout;
     private final Duration requestTimeout;
+    /** WSAA TRA validity window requested in each {@code loginCms}. Defaults to 12 h. */
+    private final Duration traValidity;
 
     private ArcaProperties(Builder b) {
         this.environment = Objects.requireNonNull(b.environment, "environment");
@@ -40,6 +42,7 @@ public final class ArcaProperties {
         this.keystorePassword = b.keystorePassword;
         this.connectTimeout = b.connectTimeout != null ? b.connectTimeout : Duration.ofSeconds(30);
         this.requestTimeout = b.requestTimeout != null ? b.requestTimeout : Duration.ofSeconds(60);
+        this.traValidity = b.traValidity != null ? b.traValidity : Duration.ofHours(12);
     }
 
     public static Builder builder() { return new Builder(); }
@@ -53,6 +56,7 @@ public final class ArcaProperties {
     public String getKeystorePassword() { return keystorePassword; }
     public Duration getConnectTimeout() { return connectTimeout; }
     public Duration getRequestTimeout() { return requestTimeout; }
+    public Duration getTraValidity() { return traValidity; }
 
     public static final class Builder {
         private Environment environment;
@@ -64,6 +68,7 @@ public final class ArcaProperties {
         private String keystorePassword;
         private Duration connectTimeout;
         private Duration requestTimeout;
+        private Duration traValidity;
 
         public Builder environment(Environment v) { this.environment = v; return this; }
         public Builder cuit(String v) { this.cuit = v; return this; }
@@ -74,6 +79,7 @@ public final class ArcaProperties {
         public Builder keystorePassword(String v) { this.keystorePassword = v; return this; }
         public Builder connectTimeout(Duration v) { this.connectTimeout = v; return this; }
         public Builder requestTimeout(Duration v) { this.requestTimeout = v; return this; }
+        public Builder traValidity(Duration v) { this.traValidity = v; return this; }
 
         public ArcaProperties build() { return new ArcaProperties(this); }
     }

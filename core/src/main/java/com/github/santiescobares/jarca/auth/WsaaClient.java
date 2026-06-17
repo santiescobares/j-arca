@@ -4,6 +4,7 @@ import com.github.santiescobares.jarca.cache.ArcaCache;
 import com.github.santiescobares.jarca.cache.CacheKeys;
 import com.github.santiescobares.jarca.config.ArcaProperties;
 import com.github.santiescobares.jarca.crypto.CmsSigner;
+import com.github.santiescobares.jarca.error.ArcaAuthException;
 import com.github.santiescobares.jarca.error.ArcaTransportException;
 import com.github.santiescobares.jarca.soap.SoapClient;
 import com.github.santiescobares.jarca.soap.SoapMessageBuilder;
@@ -79,17 +80,37 @@ public final class WsaaClient {
         return ta;
     }
 
+    /**
+     * Maps the WSAA {@code coe.alreadyAuthenticated} fault to an actionable {@link ArcaAuthException},
+     * which tells the caller to reuse the cached TA rather than request a new one.
+     */
+    private ArcaAuthException alreadyAuthenticated(String servicio, ArcaTransportException cause) {
+        return new ArcaAuthException(
+                "WSAA already issued a valid TA for (cuit=" + props.getCuit() + ", servicio="
+                + servicio + "); it cannot be re-requested until it expires (TRA validity window). "
+                + "Reuse the cached TA instead of logging in again — this usually means the ArcaCache "
+                + "is not shared or not persisted across instances.", cause);
+    }
+
     // ── private ──────────────────────────────────────────────────────────────
 
     private TicketAccess loginCms(String servicio) {
-        String traXml = TraBuilder.build(servicio);
+        String traXml = TraBuilder.build(servicio, props.getTraValidity());
         byte[] traDer = traXml.getBytes(StandardCharsets.UTF_8);
         byte[] cms = signer.sign(traDer);
         String b64Cms = Base64.getEncoder().encodeToString(cms);
 
         String envelope = SoapMessageBuilder.loginCms(b64Cms);
         String url = props.getServiceUrls().getWsaaUrl();
-        Document doc = soapClient.post(url, "", envelope);
+        Document doc;
+        try {
+            doc = soapClient.post(url, "", envelope);
+        } catch (ArcaTransportException e) {
+            if (e.getMessage() != null && e.getMessage().contains("coe.alreadyAuthenticated")) {
+                throw alreadyAuthenticated(servicio, e);
+            }
+            throw e;
+        }
 
         return parseResponse(doc);
     }

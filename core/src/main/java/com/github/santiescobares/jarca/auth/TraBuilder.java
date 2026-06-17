@@ -25,8 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class TraBuilder {
 
-    /** TRA validity window. WSAA allows up to 24 h; use 12 h to match the TA lifetime. */
-    private static final Duration VALIDITY = Duration.ofHours(12);
+    /** Default TRA validity window. WSAA allows up to 24 h; use 12 h to match the TA lifetime. */
+    private static final Duration DEFAULT_VALIDITY = Duration.ofHours(12);
 
     private static final DateTimeFormatter ISO_OFFSET =
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
@@ -34,15 +34,26 @@ public final class TraBuilder {
     private TraBuilder() {}
 
     /**
-     * Builds a TRA XML string for the given service name.
+     * Builds a TRA XML string for the given service name using the default 12 h validity window.
      *
      * @param service ARCA service name, e.g. {@code "wsfe"}, {@code "ws_sr_constancia_inscripcion"}
      * @return UTF-8 XML string ready to be signed
      */
     public static String build(String service) {
+        return build(service, DEFAULT_VALIDITY);
+    }
+
+    /**
+     * Builds a TRA XML string for the given service name with an explicit validity window.
+     *
+     * @param service  ARCA service name, e.g. {@code "wsfe"}, {@code "ws_sr_constancia_inscripcion"}
+     * @param validity TA validity requested in the TRA; WSAA rejects a new login until it expires
+     * @return UTF-8 XML string ready to be signed
+     */
+    public static String build(String service, Duration validity) {
         // Subtract a small buffer to tolerate clock skew between client and WSAA servers.
         ZonedDateTime now = ZonedDateTime.now(ArcaProperties.ZONE).minusSeconds(10);
-        ZonedDateTime expiry = now.plus(VALIDITY);
+        ZonedDateTime expiry = now.plus(validity);
         // Random uniqueId within xs:unsignedInt range (max 4,294,967,295) to avoid collisions across rapid TA requests.
         long uniqueId = ThreadLocalRandom.current().nextLong(1_000_000_000L, 4_000_000_000L);
 
